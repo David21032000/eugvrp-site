@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Shield, Send, CheckCircle, ArrowLeft } from "lucide-react";
+import { Zap, Send, CheckCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,10 +13,11 @@ const questions = [
   { id: "roblox_username", label: "Username Roblox", type: "text", required: true },
   { id: "discord_tag", label: "Discord Tag (ex: Nume#1234)", type: "text", required: true },
   { id: "age", label: "Vârstă", type: "text", required: true },
-  { id: "experience", label: "Ce experiență ai în roleplay?", type: "textarea", required: true },
-  { id: "why_police", label: "De ce vrei să faci parte din Poliție?", type: "textarea", required: true },
-  { id: "scenario1", label: "Scenariu: Vezi un jucător care încalcă regulile în mod grav. Ce faci?", type: "textarea", required: true },
-  { id: "activity", label: "Cât timp poți dedica activității pe server?", type: "text", required: true },
+  { id: "experience", label: "Ce experiență ai în organizarea de sesiuni roleplay?", type: "textarea", required: true },
+  { id: "why_host", label: "De ce vrei să devii Session Host?", type: "textarea", required: true },
+  { id: "scenario1", label: "Scenariu: Cum gestionezi o situație conflictuală între doi jucători în timpul unei sesiuni?", type: "textarea", required: true },
+  { id: "scenario2", label: "Cum ai organiza o sesiune de roleplay pentru începători?", type: "textarea", required: true },
+  { id: "activity", label: "Câte sesiuni pe săptămână poți găzdui?", type: "text", required: true },
 ];
 
 const containerVariants = {
@@ -43,7 +44,7 @@ const itemVariants = {
   },
 };
 
-export default function PoliceApplication() {
+export default function SessionHostApplication() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -58,7 +59,6 @@ export default function PoliceApplication() {
     setIsSubmitting(true);
     setError("");
 
-    // Validate required fields
     for (const q of questions) {
       if (q.required && !formData[q.id]?.trim()) {
         setError(`Te rugăm să completezi câmpul: ${q.label}`);
@@ -74,21 +74,17 @@ export default function PoliceApplication() {
         body: JSON.stringify({
           discordUserId: formData.discord_tag || "unknown",
           discordUsername: formData.discord_tag || "unknown",
-          faction: "police",
+          faction: "sessionhost",
           questions: formData,
         }),
       });
 
-      const data = await response.json();
-      
       if (response.ok) {
         setIsSubmitted(true);
       } else {
-        console.error('API Error:', data);
-        setError(data.details || "A apărut o eroare la trimiterea aplicației. Încearcă din nou.");
+        setError("A apărut o eroare la trimiterea aplicației. Încearcă din nou.");
       }
     } catch (err) {
-      console.error('Fetch error:', err);
       setError("A apărut o eroare la trimiterea aplicației.");
     } finally {
       setIsSubmitting(false);
@@ -98,7 +94,7 @@ export default function PoliceApplication() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen pt-24 pb-12 px-4 relative overflow-hidden">
-        <FloatingElements count={6} colors={["#3b82f6", "#06b6d4", "#a855f7"]} />
+        <FloatingElements count={6} colors={["#10b981", "#34d399", "#6ee7b7"]} />
         <div className="max-w-2xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -119,7 +115,7 @@ export default function PoliceApplication() {
               Îți mulțumim pentru interes. Vom analiza aplicația ta și îți vom răspunde în cel mai scurt timp pe Discord.
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button className="bg-gradient-to-r from-blue-500 to-cyan-500">
+              <Button className="bg-gradient-to-r from-emerald-500 to-green-500">
                 <Link href="/" className="flex items-center">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Înapoi la pagina principală
@@ -134,7 +130,7 @@ export default function PoliceApplication() {
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 relative">
-      <FloatingElements count={5} colors={["#3b82f6", "#06b6d4"]} />
+      <FloatingElements count={5} colors={["#10b981", "#34d399"]} />
 
       <div className="max-w-2xl mx-auto relative z-10">
         <motion.div
@@ -146,19 +142,19 @@ export default function PoliceApplication() {
             Înapoi
           </Link>
 
-          <TiltCard tiltAmount={3} glowColor="rgba(59, 130, 246, 0.2)">
+          <TiltCard tiltAmount={3} glowColor="rgba(16, 185, 129, 0.2)">
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
               <div className="text-center mb-8">
                 <motion.div
-                  className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center"
+                  className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Shield className="w-10 h-10 text-white" />
+                  <Zap className="w-10 h-10 text-white" />
                 </motion.div>
-                <h1 className="text-3xl font-bold text-white mb-2">Aplică pentru Poliție</h1>
+                <h1 className="text-3xl font-bold text-white mb-2">Aplică pentru Session Host</h1>
                 <p className="text-white/60">
-                  Completează formularul de mai jos pentru a aplica în Departamentul de Poliție
+                  Completează formularul de mai jos pentru a aplica ca Session Host
                 </p>
               </div>
 
@@ -189,7 +185,7 @@ export default function PoliceApplication() {
                       <Textarea
                         value={formData[q.id] || ""}
                         onChange={(e) => handleChange(q.id, e.target.value)}
-                        className="bg-white/5 border-white/10 text-white placeholder:text-white/40 min-h-[100px] focus:border-blue-500/50 focus:ring-blue-500/20 transition-all"
+                        className="bg-white/5 border-white/10 text-white placeholder:text-white/40 min-h-[100px] focus:border-emerald-500/50 focus:ring-emerald-500/20 transition-all"
                         required={q.required}
                       />
                     ) : (
@@ -197,7 +193,7 @@ export default function PoliceApplication() {
                         type={q.type}
                         value={formData[q.id] || ""}
                         onChange={(e) => handleChange(q.id, e.target.value)}
-                        className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all"
+                        className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-emerald-500/50 focus:ring-emerald-500/20 transition-all"
                         required={q.required}
                       />
                     )}
@@ -208,7 +204,7 @@ export default function PoliceApplication() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white py-6 relative overflow-hidden group"
+                    className="w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white py-6 relative overflow-hidden group"
                   >
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"

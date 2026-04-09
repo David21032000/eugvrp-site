@@ -24,11 +24,23 @@ model FactionApplication {
   id            String   @id @default(uuid())
   discordUserId String
   discordUsername String
-  faction       String   // "police", "staff", "firefighter", "dot"
+  faction       String   // "police", "staff", "firefighter", "dot", "sessionhost"
   questions     Json     // Store questions and answers
   status        String   @default("pending") // pending, accepted, rejected
   reviewedBy    String?
   reviewNote    String?
+  discordRoleId String?  // Discord role ID to assign on acceptance
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model FactionRole {
+  id            String   @id @default(uuid())
+  faction       String   @unique // "police", "staff", "firefighter", "dot", "sessionhost"
+  discordRoleId String   // Discord role ID for this faction
+  name          String   // Display name
+  description   String?
+  color         String   // Hex color for embeds
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -36,9 +48,13 @@ model FactionApplication {
 model AdminUser {
   id            String   @id @default(uuid())
   discordUserId String   @unique
-  discordUsername String
+  discordUsername String @unique
+  passwordHash  String?  // For login
   role          String   @default("admin") // admin, moderator
+  active        Boolean  @default(true)
+  lastLogin     DateTime?
   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model SiteConfig {

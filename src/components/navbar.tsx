@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X, Disc, ShoppingCart, FileText, Home, Users, Sparkles } from "lucide-react";
+import { Menu, X, Disc, ShoppingCart, FileText, Home, Users, Sparkles, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { name: "Acasă", href: "/", icon: Home },
+  { name: "Staff", href: "/staff", icon: Users },
   { name: "Shop", href: "#shop", icon: ShoppingCart },
   { name: "Aplică", href: "#apply", icon: FileText },
+  { name: "Admin", href: "/admin", icon: Shield },
   { name: "Discord", href: "https://discord.gg/pEZEWVnNjV", icon: Disc, external: true },
 ];
 

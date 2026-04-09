@@ -15,10 +15,11 @@ const quickLinks = [
 ];
 
 const factions = [
-  { name: "Poliție", icon: Shield, color: "from-blue-500 to-cyan-500" },
-  { name: "Pompieri", icon: Flame, color: "from-red-500 to-orange-500" },
-  { name: "DOT", icon: Truck, color: "from-yellow-500 to-amber-500" },
-  { name: "Staff", icon: Crown, color: "from-purple-500 to-pink-500" },
+  { name: "Poliție", icon: Shield, color: "from-blue-500 to-cyan-500", href: "/apply/politie" },
+  { name: "Pompieri", icon: Flame, color: "from-red-500 to-orange-500", href: "/apply/pompieri" },
+  { name: "DOT", icon: Truck, color: "from-yellow-500 to-amber-500", href: "/apply/dot" },
+  { name: "Staff", icon: Crown, color: "from-purple-500 to-pink-500", href: "/apply/staff" },
+  { name: "Session Host", icon: Zap, color: "from-emerald-500 to-green-500", href: "/apply/sessionhost" },
 ];
 
 const containerVariants = {
@@ -158,7 +159,7 @@ export function Footer() {
                   className="group"
                 >
                   <Link
-                    href={`/apply/${faction.name.toLowerCase()}`}
+                    href={faction.href}
                     className="flex items-center text-white/60 hover:text-white transition-colors"
                   >
                     <motion.span
@@ -212,7 +213,7 @@ export function Footer() {
             className="text-white/40 text-sm flex items-center"
             whileHover={{ scale: 1.02 }}
           >
-            © 2025 EUGVRP. Made with
+            © 2026 EUGVRP - Europa Greenville Roleplay Community. Made with
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}

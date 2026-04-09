@@ -5,10 +5,14 @@ import { sendApplicationWebhook } from '@/lib/discord';
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('📝 Primire aplicație...');
     const body = await request.json();
+    console.log('📦 Body primit:', body);
+    
     const { discordUserId, discordUsername, faction, questions } = body;
 
     if (!discordUserId || !discordUsername || !faction || !questions) {
+      console.error('⚠️ Câmpuri lipsă:', { discordUserId, discordUsername, faction, questions });
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -16,6 +20,7 @@ export async function POST(request: NextRequest) {
     }
 
   // Create application in database
+  console.log('💾 Se salvează în baza de date...');
   const { prisma } = await import('@/lib/prisma');
   const application = await prisma.factionApplication.create({
       data: {
@@ -26,23 +31,25 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Send Discord webhook notification
-    await sendApplicationWebhook({
+    console.log('✅ Aplicație salvată:', application.id);
+
+    // Send Discord webhook notification (non-blocking)
+    sendApplicationWebhook({
       id: application.id,
       discordUserId,
       discordUsername,
       faction,
       questions,
-    });
+    }).catch(err => console.error('Webhook error:', err));
 
     return NextResponse.json(
       { message: 'Application submitted successfully', application },
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error creating application:', error);
+    console.error('❌ Eroare la creare aplicație:', error);
     return NextResponse.json(
-      { error: 'Failed to submit application' },
+      { error: 'Failed to submit application', details: String(error) },
       { status: 500 }
     );
   }

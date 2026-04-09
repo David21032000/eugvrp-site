@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
 
 interface FloatingElementsProps {
   count?: number;
@@ -12,8 +12,10 @@ export function FloatingElements({
   count = 6,
   colors = ["#a855f7", "#3b82f6", "#ec4899", "#8b5cf6"],
 }: FloatingElementsProps) {
-  const elements = useMemo(() => {
-    return Array.from({ length: count }, (_, i) => ({
+  const [elements, setElements] = useState<any[]>([]);
+
+  useEffect(() => {
+    const generatedElements = Array.from({ length: count }, (_, i) => ({
       id: i,
       size: Math.random() * 100 + 50,
       x: Math.random() * 100,
@@ -22,10 +24,11 @@ export function FloatingElements({
       delay: Math.random() * 5,
       color: colors[Math.floor(Math.random() * colors.length)],
     }));
+    setElements(generatedElements);
   }, [count, colors]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
       {elements.map((el) => (
         <motion.div
           key={el.id}
