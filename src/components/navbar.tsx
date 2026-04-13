@@ -91,38 +91,23 @@ export function Navbar() {
                 transition={{ delay: 0.1 * index }}
               >
                 {link.external ? (
-                  <motion.a
+                  <a
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white rounded-xl transition-all duration-300 group"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="relative flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white rounded-xl transition-all duration-200 group hover:bg-white/10 cursor-pointer"
                   >
-                    <span className="relative z-10">
-                      <link.icon className="w-4 h-4" />
-                    </span>
-                    <span className="relative z-10">{link.name}</span>
-                    <motion.div
-                      className="absolute inset-0 bg-white/10 rounded-xl"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileHover={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  </motion.a>
+                    <link.icon className="w-4 h-4" />
+                    <span>{link.name}</span>
+                  </a>
                 ) : (
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link
-                      href={link.href}
-                      className="relative flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white rounded-xl transition-all duration-300 group"
-                    >
-                      <span className="relative z-10">
-                        <link.icon className="w-4 h-4" />
-                      </span>
-                      <span className="relative z-10">{link.name}</span>
-                      <div className="absolute inset-0 bg-white/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Link>
-                  </motion.div>
+                  <Link
+                    href={link.href}
+                    className="relative flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white rounded-xl transition-all duration-200 group hover:bg-white/10 cursor-pointer"
+                  >
+                    <link.icon className="w-4 h-4" />
+                    <span>{link.name}</span>
+                  </Link>
                 )}
               </motion.div>
             ))}
@@ -228,28 +213,22 @@ export function Navbar() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center space-x-3 px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 group"
+                        className="flex items-center space-x-3 px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 cursor-pointer"
                       >
-                        <motion.span
-                          whileHover={{ scale: 1.2, rotate: 10 }}
-                          className="p-2 rounded-lg bg-white/5 group-hover:bg-purple-500/20 transition-colors"
-                        >
+                        <span className="p-2 rounded-lg bg-white/5">
                           <link.icon className="w-5 h-5" />
-                        </motion.span>
+                        </span>
                         <span>{link.name}</span>
                       </a>
                     ) : (
                       <Link
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center space-x-3 px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 group"
+                        className="flex items-center space-x-3 px-4 py-4 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 cursor-pointer"
                       >
-                        <motion.span
-                          whileHover={{ scale: 1.2, rotate: 10 }}
-                          className="p-2 rounded-lg bg-white/5 group-hover:bg-purple-500/20 transition-colors"
-                        >
+                        <span className="p-2 rounded-lg bg-white/5">
                           <link.icon className="w-5 h-5" />
-                        </motion.span>
+                        </span>
                         <span>{link.name}</span>
                       </Link>
                     )}

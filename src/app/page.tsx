@@ -67,10 +67,10 @@ const faqs = [
 ];
 
 const serverStats = [
-  { icon: Users, value: "2,450+", label: "Membri Discord", color: "text-purple-400" },
-  { icon: Gamepad2, value: "150+", label: "Jucători Activi", color: "text-blue-400" },
-  { icon: Car, value: "500+", label: "Vehicule Unice", color: "text-green-400" },
-  { icon: HomeIcon, value: "24/7", label: "Uptime", color: "text-amber-400" },
+  { icon: Users, value: "120+", label: "Membri Discord", color: "text-purple-400" },
+  { icon: Gamepad2, value: "10+", label: "Sezoane Completate", color: "text-blue-400" },
+  { icon: Car, value: "Greenville", label: "Joc Roblox", color: "text-green-400" },
+  { icon: HomeIcon, value: "24/7", label: "Discord Activ", color: "text-amber-400" },
 ];
 
 const roadmap = [
@@ -129,7 +129,7 @@ const features = [
   {
     icon: Users,
     title: "Comunitate Activă",
-    description: "Peste 1000+ membri activi zilnic pe serverul nostru de Discord și în joc.",
+    description: "Peste 120+ membri activi pe serverul nostru de Discord, gata oricând de un nou sezon de roleplay.",
     gradient: "from-purple-500 to-blue-500",
   },
   {
@@ -341,7 +341,7 @@ export default function Home() {
               animate="visible"
             >
               {[
-                { value: "5000+", label: "Membri", icon: Users },
+                { value: "120+", label: "Membri", icon: Users },
                 { value: "24/7", label: "Online", icon: Zap },
                 { value: "100+", label: "Sloturi", icon: Star },
               ].map((stat, index) => (
@@ -544,10 +544,10 @@ export default function Home() {
               Susține serverul
             </motion.span>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              <MagneticText strength={0.05}>Shop</MagneticText>
+              <MagneticText strength={0.05}>Donații & Pachete VIP</MagneticText>
             </h2>
             <p className="text-white/60 text-lg max-w-2xl mx-auto">
-              Achiziționează roluri exclusive și susține dezvoltarea serverului
+              Susține dezvoltarea comunității noastre de Roblox Greenville și alege pachetul potrivit.
             </p>
           </motion.div>
 
@@ -601,10 +601,19 @@ export default function Home() {
                         ))}
                       </ul>
 
-                      <GlowButton variant="primary" className="w-full">
-                        <ShoppingCart className="w-4 h-4 mr-2" />
-                        Cumpără acum
-                      </GlowButton>
+                      <div className="flex flex-col gap-3">
+                        <Link href="https://discord.gg/pEZEWVnNjV" target="_blank" rel="noopener noreferrer">
+                          <Button className="w-full bg-white/10 hover:bg-white/20 text-white">
+                            🎟️ Ticket Discord (Revolut)
+                          </Button>
+                        </Link>
+                        <Link href="https://roblox.com" target="_blank" rel="noopener noreferrer">
+                          <GlowButton variant="primary" className="w-full">
+                            💳 Plătește cu ROBUX
+                          </GlowButton>
+                        </Link>
+                        <p className="text-xs text-white/40 text-center mt-1">Dupa plata pe Roblox, folosește /claim pe discord.</p>
+                      </div>
                     </div>
                   </AnimatedGradientBorder>
                 ) : (
@@ -632,14 +641,19 @@ export default function Home() {
                         ))}
                       </ul>
 
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                        <Button
-                          className="w-full bg-white/10 hover:bg-white/20 text-white"
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-2" />
-                          Cumpără acum
-                        </Button>
-                      </motion.div>
+                      <div className="flex flex-col gap-3">
+                        <Link href="https://discord.gg/pEZEWVnNjV" target="_blank" rel="noopener noreferrer">
+                          <Button className="w-full bg-white/5 hover:bg-white/10 text-white text-sm">
+                            🎟️ Ticket Discord (Revolut)
+                          </Button>
+                        </Link>
+                        <Link href="https://roblox.com" target="_blank" rel="noopener noreferrer">
+                          <Button className="w-full bg-white/10 hover:bg-white/20 text-white">
+                            💳 Plătește cu ROBUX
+                          </Button>
+                        </Link>
+                        <p className="text-xs text-white/40 text-center mt-1">Dupa plata cu robux, scrie /claim pe discord.</p>
+                      </div>
                     </div>
                   </TiltCard>
                 )}

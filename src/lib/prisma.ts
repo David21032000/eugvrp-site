@@ -8,8 +8,6 @@ if (!process.env.DATABASE_URL) {
 	process.env.DATABASE_URL = 'file:./dev.db'
 }
 
-// Some Prisma runtime versions expect an options object; pass an empty one to
-// ensure initialization succeeds during Next.js build-time page-data collection.
-export const prisma = globalForPrisma.prisma || new PrismaClient({})
+export const prisma = globalForPrisma.prisma || new PrismaClient()
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

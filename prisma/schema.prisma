@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Product {
@@ -25,7 +26,7 @@ model FactionApplication {
   discordUserId String
   discordUsername String
   faction       String   // "police", "staff", "firefighter", "dot", "sessionhost"
-  questions     Json     // Store questions and answers
+  questions     String   // Store questions and answers as stringified JSON
   status        String   @default("pending") // pending, accepted, rejected
   reviewedBy    String?
   reviewNote    String?
@@ -62,4 +63,17 @@ model SiteConfig {
   key           String   @unique
   value         String
   updatedAt     DateTime @updatedAt
+}
+
+model ClaimedPass {
+  id              String   @id @default(uuid())
+  discordUserId   String
+  discordUsername String
+  robloxUserId    String
+  robloxUsername  String
+  gamePassId      String
+  claimedAt       DateTime @default(now())
+
+  // Prevent multiple claims by same roblox account for same gamepass
+  @@unique([robloxUserId, gamePassId])
 }

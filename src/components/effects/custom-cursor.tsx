@@ -55,7 +55,7 @@ export function CustomCursor() {
         el.removeEventListener("mouseleave", handleMouseLeave);
       });
     };
-  }, [cursorX, cursorY]);
+  }, []); // cursorX/cursorY sunt MotionValues stabile — nu se schimbă între rendere
 
   if (!isVisible) return null;
 
